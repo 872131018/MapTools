@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<dataroot>
+	<aspdir location="http://127.0.0.1/LaJollaGateway" />
+	<xmlwritedir location="C:\xmldata" />
+	<mdb name="2382.mdb" />
+	<error basemap="defaultmap.jpg">The requested map is not available.</error>
+	<infobox font="Arial" bold="true" italic="false" txtColor="ffffff" align="center" size="16" leading="2" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" graphicMargin="10" maxWidth="195" suiteLabel="Room" />
+	<colors>0000ff;00ff00;ff0000;c22a26</colors>
+	<paths width="5" color="c22a26">
+		<building name="9191 Towne Centre">
+			<suite name="all" basemap="defaultmap.jpg" ibox="267,508"><points>526,432;423,432</points></suite></building>
+		<building name="9171 Towne Centre">
+			<suite name="140" basemap="fp1.jpg" ibox="815,376"><points>738,283;720,283;720,445;736,445</points></suite>
+			<suite name="380" basemap="fp3.jpg" ibox="537,60"><points>738,283;720,283;720,205</points></suite>
+			<suite name="456" basemap="fp4.jpg" ibox="462,378"><points>737,285;721,285;721,416;721,445;710,445</points></suite>
+			<suite name="9171 Towne Centre" basemap="defaultmap.jpg" ibox="738,354"><points>1276,345;1276,337</points></suite>
+			<suite name="ATM" basemap="defaultmap.jpg" ibox="752,438"><points>1275,484;1275,470</points></suite>
+			<suite name="P1" basemap="defaultmap.jpg" ibox="752,438"><points>1275,484;1275,470</points></suite>
+			<suite name="195" basemap="fp1.jpg" ibox="506,110"><points>731,255;658,255;619,242;532,242;519,209</points></suite>
+			<suite name="190" basemap="fp1.jpg" ibox="378,295"><points>731,255;658,255;619,242;532,242;503,242</points></suite>
+			<suite name="100" basemap="fp1.jpg" ibox="462,83"><points>730,255;645,255;645,219</points></suite>
+			<suite name="175" basemap="fp1.jpg" ibox="446,339"><points>730,255;645,255;645,297</points></suite>
+			<suite name="120" basemap="fp1.jpg" ibox="820,425"><points>728,255;710,255;710,402;720,402</points></suite>
+			<suite name="150" basemap="fp1.jpg" ibox="815,461"><points>728,255;710,255;710,527;752,527</points></suite>
+			<suite name="180" basemap="fp1.jpg" ibox="415,457"><points>728,255;710,255;710,527;675,527</points></suite>
+			<suite name="200" basemap="fp2.jpg" ibox="378,199"><points>728,255;698,255</points></suite>
+			<suite name="215" basemap="fp2.jpg" ibox="814,309"><points>729,257;710,257;710,378;724,378</points></suite>
+			<suite name="250" basemap="fp2.jpg" ibox="825,493"><points>729,257;710,257;710,378;710,518</points></suite>
+			<suite name="270" basemap="fp2.jpg" ibox="640,554"><points>729,257;710,257;710,378;710,502;644,502</points></suite>
+			<suite name="335" basemap="fp3.jpg" ibox="613,551"><points>729,257;710,257;710,378;710,502;607,502</points></suite>
+			<suite name="350" basemap="fp3.jpg" ibox="748,480"><points>729,257;710,257;710,378;710,502</points></suite>
+			<suite name="330" basemap="fp3.jpg" ibox="820,419"><points>729,257;710,257;710,378;710,447;729,447</points></suite>
+			<suite name="325" basemap="fp3.jpg" ibox="819,363"><points>729,257;710,257;710,378;710,392;721,392</points></suite>
+			<suite name="310" basemap="fp3.jpg" ibox="471,424"><points>729,257;710,257;710,378;710,388;697,388</points></suite>
+			<suite name="320" basemap="fp3.jpg" ibox="464,499"><points>729,257;710,257;710,378;710,388;710,434;697,434</points></suite>
+			<suite name="340" basemap="fp3.jpg" ibox="744,485"><points>729,257;710,257;710,378;710,388;710,434;710,500;694,491</points></suite>
+			<suite name="300" basemap="fp3.jpg" ibox="495,360"><points>729,257;710,257;710,328;695,328</points></suite>
+			<suite name="375" basemap="fp3.jpg" ibox="545,52"><points>729,257;700,257</points></suite>
+			<suite name="315" basemap="fp3.jpg" ibox="820,294"><points>772,255;784,255;784,296</points></suite>
+			<suite name="460" basemap="fp4.jpg" ibox="546,333"><points>729,256;693,256</points></suite>
+			<suite name="400" basemap="fp4.jpg" ibox="752,67"><points>730,257;710,257;710,173</points></suite>
+			<suite name="450" basemap="fp4.jpg" ibox="626,85"><points>730,257;710,257;710,188;600,188;600,176</points></suite>
+			<suite name="405" basemap="fp4.jpg" ibox="821,303"><points>730,257;710,257;710,294;724,294</points></suite>
+			<suite name="410" basemap="fp4.jpg" ibox="820,372"><points>730,257;710,257;710,376;725,376</points></suite>
+			<suite name="465" basemap="fp4.jpg" ibox="486,461"><points>730,257;710,257;710,403;695,403</points></suite>
+			<suite name="430" basemap="fp4.jpg" ibox="821,427"><points>730,257;710,257;710,432;727,432</points></suite>
+			<suite name="440" basemap="fp4.jpg" ibox="753,494"><points>730,257;710,257;710,452;704,452;704,475</points></suite>
+			<suite name="455" basemap="fp4.jpg" ibox="416,523"><points>730,257;710,257;710,452;683,452;683,495;672,495;657,509</points></suite>
+			<suite name="500" basemap="fp5.jpg" ibox="476,259"><points>727,255;687,255</points></suite>
+			<suite name="600" basemap="fp6.jpg" ibox="471,260"><points>727,256;703,256;703,289</points></suite></building>
+		<building name="9191 Towne Centre Parking">
+			<suite name="all" basemap="defaultmap.jpg" ibox="385,177"><points>517,420;468,340;359,301</points></suite></building>
+		<building name="4352 La Jolla Village">
+			<suite name="all" basemap="defaultmap.jpg" ibox="49,437"><points>514,450;478,564;188,580;188,611</points></suite>
+		</building></paths>
+		<speed>5</speed>
+</dataroot>

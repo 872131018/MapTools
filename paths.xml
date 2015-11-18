@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<dataroot>
+	<aspdir location="http://127.0.0.1/100CorporatePointe" />
+	<xmlwritedir location="C:\xmldata" />
+	<mdb name="3728.mdb" />
+	<error basemap="defaultmap.jpg">The requested map is not available.</error>
+	<infobox font="Arial" bold="true" italic="false" txtColor="000000" align="center" size="16" leading="2" leftMargin="10" rightMargin="10" topMargin="10" bottomMargin="10" graphicMargin="10" maxWidth="195" suiteLabel="Room" />
+	<colors>0000ff;00ff00;ff0000;0d568d</colors>
+	<paths width="5" color="0d568d">
+		<building name="">
+			<suite name="100" basemap="fp-1.jpg" ibox="939,224"><points>889,386;914,386;914,364;885,364;874,341</points></suite>
+			<suite name="180" basemap="fp-1.jpg" ibox="479,354"><points>847,391;804,391;804,317;775,317</points></suite>
+			<suite name="170" basemap="fp-1.jpg" ibox="455,291"><points>847,391;804,391;804,173;642,173;642,194</points></suite>
+			<suite name="125" basemap="fp-1.jpg" ibox="785,543"><points>843,391;808,391;808,502;784,502</points></suite>
+			<suite name="105" basemap="fp-1.jpg" ibox="949,591"><points>843,391;808,391;808,671;829,671</points></suite>
+			<suite name="120" basemap="fp-1.jpg" ibox="576,736"><points>843,391;808,391;808,682;721,682</points></suite>
+			<suite name="119" basemap="fp-1.jpg" ibox="942,606"><points>891,384;911,384;919,463;944,463;951,525;1218,525;1226,579;1280,579;1305,756;1274,756</points></suite>
+			<suite name="210" basemap="fp-2.jpg" ibox="876,542"><points>795,411;838,411</points></suite>
+			<suite name="265" basemap="fp-2.jpg" ibox="947,167"><points>809,409;809,325;834,325</points></suite>
+			<suite name="285" basemap="fp-2.jpg" ibox="514,381"><points>809,409;809,325;809,300;783,300</points></suite>
+			<suite name="270" basemap="fp-2.jpg" ibox="844,54"><points>809,407;809,134</points></suite>
+			<suite name="280" basemap="fp-2.jpg" ibox="431,282"><points>809,412;809,171;661,171;661,199</points></suite>
+			<suite name="275" basemap="fp-2.jpg" ibox="431,282"><points>809,412;809,171;551,171;551,161;536,161</points></suite>
+			<suite name="250" basemap="fp-2.jpg" ibox="895,729"><points>810,408;816,730</points></suite>
+			<suite name="260" basemap="fp-2.jpg" ibox="468,537"><points>809,408;815,689;708,689</points></suite>
+			<suite name="200" basemap="fp-2.jpg" ibox="1129,540"><points>809,408;815,689;1097,689</points></suite>
+			<suite name="350" basemap="fp-3.jpg" ibox="1148,577"><points>809,408;815,689;1055,689;1055,659</points></suite>
+			<suite name="375" basemap="fp-3.jpg" ibox="951,704"><points>809,408;815,689;902,689;902,718</points></suite>
+			<suite name="370" basemap="fp-3.jpg" ibox="916,720"><points>809,408;815,689;886,689;886,718</points></suite>
+			<suite name="330" basemap="fp-3.jpg" ibox="464,701"><points>809,408;815,689;815,724</points></suite>
+			<suite name="340" basemap="fp-3.jpg" ibox="936,585"><points>809,410;815,599;841,599</points></suite>
+			<suite name="320" basemap="fp-3.jpg" ibox="560,638"><points>810,400;810,501;777,501</points></suite>
+			<suite name="310" basemap="fp-3.jpg" ibox="464,402"><points>808,409;808,486;783,486</points></suite>
+			<suite name="300" basemap="fp-3.jpg" ibox="460,323"><points>809,413;809,339;787,339</points></suite>
+			<suite name="395" basemap="fp-3.jpg" ibox="443,288"><points>809,413;809,339;809,306;784,306</points></suite>
+			<suite name="365" basemap="fp-3.jpg" ibox="1016,215"><points>809,413;809,339;809,274;830,274</points></suite>
+			<suite name="380" basemap="fp-3.jpg" ibox="1013,188"><points>809,413;809,339;809,262;825,262</points></suite>
+			<suite name="382" basemap="fp-3.jpg" ibox="918,99"><points>809,413;809,339;809,174;785,174;785,159;800,153</points></suite>
+			<suite name="385" basemap="fp-3.jpg" ibox="790,45"><points>809,413;809,339;809,174;775,174;775,150</points></suite>
+			<suite name="387" basemap="fp-3.jpg" ibox="642,46"><points>809,413;809,339;809,174;616,174;616,152</points></suite>
+			<suite name="390" basemap="fp-3.jpg" ibox="225,172"><points>809,413;809,339;809,174;550,174;544,150</points></suite>
+			<suite name="390/395" basemap="fp-3.jpg" ibox="205,177"><points>809,413;809,339;809,174;567,174</points></suite>
+		</building>
+	</paths>
+	<speed>5</speed>
+
+</dataroot>

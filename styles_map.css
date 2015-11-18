@@ -1,0 +1,51 @@
+
+body {
+  font-family: Arial,sans-serif;
+  color: #000;
+	background: #fff;
+}
+.title {
+	font-size: 22px;
+	margin: 0px;
+	color: #444;
+	text-align: center;
+}
+
+/*** dev buttons ***/
+#anim1btn  {
+	position: absolute;
+	left: 220px; top: 10px;
+	width: 130px;
+	height: 40px;
+	margin: 5px 5px 5px 5px;
+	/*white-space: normal;*/
+}
+#clearBtn  {
+	position: absolute;
+	left: 360px; top: 10px;
+	width: 130px;
+	height: 40px;
+	margin: 5px 5px 5px 5px;
+	/*white-space: normal;*/
+}
+#qspara {
+	position: absolute;
+	left:350px; top:20px;
+	color: #000;
+}
+
+/*#svgcont {
+	position: absolute;
+	left:50px; top:70px;
+	width: 1000px; height: 1000px;
+	border: 1px solid #888;
+}*/
+
+/*#line0 {
+	x1: 0;
+	y1: 0;
+	x2: 0;
+	y2: 0;
+	stroke: #000;
+	stroke-width: 2px;
+}*/
