@@ -1,6 +1,8 @@
 //window.jQuery = window.$ = require("scriptFiles/jquery-x.x.x.js");
 //require("scriptFiles/velocity.js");
-
+/*
+*All the variables for the page
+*/
 var genParams = {};
 var aspdirloc;
 var xmldirloc;
@@ -26,71 +28,49 @@ var ifbGraphicMargin;
 var ifbMaxWidth;
 var ifbSuiteLabel;
 
-var pathsDoc;
 var pointArr = [];
 //var pathObj = {};
 var buildingCount;
-var bldg;
-var suite;
 var found;
-
-$(document).ready(function() {
-  //console.log('display: ready');
+/*
+*HTML has loaded, logic can begin at single point
+*@TODO: Move ready to indexDriver.js and refactor functions
+*/
+$(document).ready(function()
+{
   body = document.getElementsByTagName('body')[0];
-
   //makeButtons(); // create dev buttons
-
   //getQueryString();
-
-  getMapvars();
-  getPathsDoc();
-
+  /*
+  *Get the data that was left by ASP processing
+  */
+  var building = $("#mapvar_bldg").html();
+  var suite = $("#mapvar_suite").html();
+  /*
+  *Load an xml that describes the path to draw with ajax
+  */
+  $.get('paths.xml', function(data, status)
+  {
+    if(status == 'success')
+    {
+      var pathsXML = data;
+      temp = $(pathsXML).find('speed').text();
+      console.log(temp);
+      /*
+      *Move this to external function and refactor to jquery
+      */
+      getattrs();
+      return true;
+    }
+    else
+    {
+      return false;
+    }
+  }, "xml");
   //doAnim(); ///TEMP //////////////////////
 });
-
-// BUTTONS for dev use only /////////////////////////////////
-function makeButtons(){
-	animBtn1 = document.createElement('input');
-  animBtn1.setAttribute('id', 'anim1btn');
-  animBtn1.setAttribute('type','button');
-	animBtn1.setAttribute('value',' ANIM 1 ');
-	animBtn1.onclick = function() { doAnim1() }; 
-  body.appendChild(animBtn1);
-
-	clearBtn = document.createElement('input');
-  clearBtn.setAttribute('id', 'clearBtn');
-  clearBtn.setAttribute('type','button');
-	clearBtn.setAttribute('value',' CLEAR ');
-	clearBtn.onclick = function() { clearsvg() }; 
-  body.appendChild(clearBtn);
-}
-
-// INIT ////////////////////////////////////////////////////
-function getMapvars() {
-		console.log("getMapvars called");
-	bldg = $("#mapvar_bldg").html();
-	suite = $("#mapvar_suite").html();
-  	console.log("  bldg = " + bldg + "; suite = " + suite);
-}
-
-function reqListener () {
-  	//console.log(this.responseText);
-  pathsDoc = this.responseXML;
-	getattrs();
-}
-
-function getPathsDoc() {
-		console.log('getPathsDoc called');
-	var url = "paths.xml";
-	var oReq = new XMLHttpRequest();
-	oReq.addEventListener('load', reqListener);
-	oReq.open("get", url, true); // in chrome req must be async, set by 3rd arg=true 
-	oReq.send();
-}
-
-function getattrs() {
-	console.log('getattrs called');
-
+function getattrs()
+{
 	// GENERAL PARAMETERS contained in genParams object
 	aspdirloc = pathsDoc.getElementsByTagName("aspdir")[0].attributes.getNamedItem("location").nodeValue;
 	genParams.aspdirloc = aspdirloc;
@@ -154,6 +134,22 @@ function getattrs() {
 	getPathData();
 }
 
+// BUTTONS for dev use only /////////////////////////////////
+function makeButtons(){
+	animBtn1 = document.createElement('input');
+  animBtn1.setAttribute('id', 'anim1btn');
+  animBtn1.setAttribute('type','button');
+	animBtn1.setAttribute('value',' ANIM 1 ');
+	animBtn1.onclick = function() { doAnim1() };
+  body.appendChild(animBtn1);
+
+	clearBtn = document.createElement('input');
+  clearBtn.setAttribute('id', 'clearBtn');
+  clearBtn.setAttribute('type','button');
+	clearBtn.setAttribute('value',' CLEAR ');
+	clearBtn.onclick = function() { clearsvg() };
+  body.appendChild(clearBtn);
+}
 function showGenParams() { // DEBUG
 	console.log("genParams:");
 	$.each( genParams, function( key, value ) {
@@ -315,7 +311,7 @@ function doAnim() {
 		// $("#line"+p).css( {"x2": x2, "y2": y2 } );
 
 		$("#line"+p).velocity({
-			properties: {"x2": x2, "y2": y2 }, 
+			properties: {"x2": x2, "y2": y2 },
 			options: {duration: 1000, easing: "linear", queue: false} // needs duration calculated based on length of segment, so each segment is drawn at the same speed
 		});
 
@@ -360,7 +356,7 @@ function placeArrow(x:Number, y:Number, r:Number):void {
 			arrow.y = y;
 			arrow.rotation = r;
 			addChild(arrow);
-			
+
 			lineList.push(arrow);
 			arrowPlaced = true;
 		}
@@ -377,7 +373,7 @@ function doAnim1() { // button function
 	$("#line1").css( {"stroke-width": "5px"} );
 
 	$("#line1").velocity({
-		properties: {"x2": 100, "y2": 700 }, 
+		properties: {"x2": 100, "y2": 700 },
 		options: {duration: 1000, easing: "linear", queue: false}
 	});
 }
@@ -410,4 +406,3 @@ function getQueryString() {
 	qspara.appendChild(qsnode);
 	body.appendChild(qspara);
 }*/
-

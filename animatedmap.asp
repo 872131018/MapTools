@@ -68,6 +68,7 @@ connection.close
 set connection = nothing
 '/*
 '*Write the final response to the server
+'*@TODO: move styles to css
 '*/
 Response.write("<div id='mapvar_bldg' style='display:none'>"&building&"</div><div id='mapvar_suite' style='display:none'>"&suite&"</div>")
 %>
