@@ -47,7 +47,7 @@ $(document).ready(function()
   var building = $("#mapvar_bldg").html();
   var suite = $("#mapvar_suite").html();
   /*
-  *Load an xml that describes the path to draw with ajax
+  *Load an xml with ajax that describes the path to draw
   */
   $.get('paths.xml', function(data, status)
   {
@@ -57,24 +57,21 @@ $(document).ready(function()
       temp = $(pathsXML).find('speed').text();
       console.log(temp);
       /*
+      *
+      */
+      genParams["aspdir"] = $(pathsXML).find("aspdir").attr("location");
+      /*
       *Move this to external function and refactor to jquery
       */
       getattrs();
       return true;
     }
-    else
-    {
-      return false;
-    }
-  }, "xml");
+    return false;
+  },"xml");
   //doAnim(); ///TEMP //////////////////////
 });
 function getattrs()
 {
-	// GENERAL PARAMETERS contained in genParams object
-	aspdirloc = pathsDoc.getElementsByTagName("aspdir")[0].attributes.getNamedItem("location").nodeValue;
-	genParams.aspdirloc = aspdirloc;
-
 	xmldirloc = pathsDoc.getElementsByTagName("xmlwritedir")[0].attributes.getNamedItem("location").nodeValue;
 	genParams.xmldirloc = xmldirloc;
 
