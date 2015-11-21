@@ -4,33 +4,11 @@
 *All the variables for the page
 */
 var genParams = {};
-var aspdirloc;
-var xmldirloc;
-var db;
-var colorArr = [];
-var speed;
-
 var infoboxParams = {};
 var ifbAttrCount;
 var ifbParamsLength;
-var ifbFont;
-var ifbBold;
-var ifbItalic;
-var ifbTxtColor;
-var ifbAlign;
-var ifbSize;
-var ifbLeading;
-var ifbLeftMargin;
-var ifbRightMargin;
-var ifbTopMargin;
-var ifbBottomMargin;
-var ifbGraphicMargin;
-var ifbMaxWidth;
-var ifbSuiteLabel;
-
 var pointArr = [];
 //var pathObj = {};
-var buildingCount;
 var found;
 /*
 *HTML has loaded, logic can begin at single point
@@ -54,131 +32,52 @@ $(document).ready(function()
     if(status == 'success')
     {
       var pathsXML = data;
-      temp = $(pathsXML).find('speed').text();
-      console.log(temp);
       /*
-      *
+      *Construct array of general params from the xml
+      *@TODO: refactor the xml to have consistent data delivery pattern for factory
+      *@TODO: Loop the xml to extract data to objects with a factory method
       */
       genParams["aspdir"] = $(pathsXML).find("aspdir").attr("location");
+      genParams["xmlwritedir"] = $(pathsXML).find("xmlwritedir").attr("location");
+      genParams["db"] = $(pathsXML).find("mdb").attr("name");
+      genParams["allColors"] = $(pathsXML).find("colors").text();
+      ganParams["speed"] = $(pathsXML).find("speed").text();
+      /*
+      *Construct the params for the infobox object from the xml
+      *@TODO: refactor the xml to have consistent data delivery pattern for factory
+      *@TODO: Pass node to object constructor method
+      */
+      ifbAttrCount = $(pathsXML).find("infobox").attr("length");
+      infoboxParams["font"] = $(pathsXML).find("infobox").attr("font");
+      infoboxParams["bold"] = $(pathsXML).find("infobox").attr("bold");
+      infoboxParams["italic"] = $(pathsXML).find("infobox").attr("italic");
+      infoboxParams["txtColor"] = $(pathsXML).find("infobox").attr("txtColor");
+      infoboxParams["align"] = $(pathsXML).find("infobox").attr("align");
+      infoboxParams["size"] = $(pathsXML).find("infobox").attr("size");
+      infoboxParams["leading"] = $(pathsXML).find("infobox").attr("leading");
+      infoboxParams["leftMargin"] = $(pathsXML).find("infobox").attr("leftMargin");
+      infoboxParams["rightMargin"] = $(pathsXML).find("infobox").attr("rightMargin");
+      infoboxParams["topMargin"] = $(pathsXML).find("infobox").attr("topMargin");
+      infoboxParams["bottomMargin"] = $(pathsXML).find("infobox").attr("bottomMargin");
+      infoboxParams["graphicMargin"] = $(pathsXML).find("infobox").attr("graphicMargin");
+      infoboxParams["maxWidth"] = $(pathsXML).find("infobox").attr("maxWidth");
+      infoboxParams["suiteLabel"] = $(pathsXML).find("infobox").attr("suiteLabel");
+      ifbParamsLength = Object.size(infoboxParams);
       /*
       *Move this to external function and refactor to jquery
       */
-      getattrs();
+      getPathData();
       return true;
     }
     return false;
   },"xml");
   //doAnim(); ///TEMP //////////////////////
 });
-function getattrs()
-{
-	xmldirloc = pathsDoc.getElementsByTagName("xmlwritedir")[0].attributes.getNamedItem("location").nodeValue;
-	genParams.xmldirloc = xmldirloc;
-
-	db = pathsDoc.getElementsByTagName("mdb")[0].attributes.getNamedItem("name").nodeValue;
-	genParams.db = db;
-
-	allColors = pathsDoc.getElementsByTagName("colors")[0].childNodes[0].nodeValue;
-	genParams.allColors = allColors;
-	//colorArr = allColors.split(";"); // DEBUG: make array & show
-	//for (var n=0; n < colorArr.length; n++) {
-	//	console.log("    colorArr[" + n + "] = " + colorArr[n]);
-	//}
-
-	speed = pathsDoc.getElementsByTagName("speed")[0].childNodes[0].nodeValue;
-	genParams.speed = speed;
-
-	//showGenParams(); //DEBUG
-
-	// INFOBOX PARAMETERS contained in infoboxParams object
-	ifbAttrCount = pathsDoc.getElementsByTagName("infobox")[0].attributes.length;
-		//console.log("  ifbAttrCount = " + ifbAttrCount);
-
-	ifbFont = pathsDoc.getElementsByTagName("infobox")[0].attributes.getNamedItem("font").nodeValue;
-	infoboxParams.font = ifbFont;
-	ifbBold = pathsDoc.getElementsByTagName("infobox")[0].attributes.getNamedItem("bold").nodeValue;
-	infoboxParams.bold = ifbBold;
-	ifbItalic = pathsDoc.getElementsByTagName("infobox")[0].attributes.getNamedItem("italic").nodeValue;
-	infoboxParams.italic = ifbItalic;
-	ifbTxtColor = pathsDoc.getElementsByTagName("infobox")[0].attributes.getNamedItem("txtColor").nodeValue;
-	infoboxParams.txtColor = ifbTxtColor;
-	ifbAlign = pathsDoc.getElementsByTagName("infobox")[0].attributes.getNamedItem("align").nodeValue;
-	infoboxParams.align = ifbAlign;
-	ifbSize = pathsDoc.getElementsByTagName("infobox")[0].attributes.getNamedItem("size").nodeValue;
-	infoboxParams.size = ifbSize;
-	ifbLeading = pathsDoc.getElementsByTagName("infobox")[0].attributes.getNamedItem("leading").nodeValue;
-	infoboxParams.leading = ifbLeading;
-
-	ifbLeftMargin = pathsDoc.getElementsByTagName("infobox")[0].attributes.getNamedItem("leftMargin").nodeValue;
-	infoboxParams.leftMargin = ifbLeftMargin;
-	ifbRightMargin = pathsDoc.getElementsByTagName("infobox")[0].attributes.getNamedItem("rightMargin").nodeValue;
-	infoboxParams.rightMargin = ifbRightMargin;
-	ifbTopMargin = pathsDoc.getElementsByTagName("infobox")[0].attributes.getNamedItem("topMargin").nodeValue;
-	infoboxParams.topMargin = ifbTopMargin;
-	ifbBottomMargin = pathsDoc.getElementsByTagName("infobox")[0].attributes.getNamedItem("bottomMargin").nodeValue;
-	infoboxParams.bottomMargin = ifbBottomMargin;
-	ifbGraphicMargin = pathsDoc.getElementsByTagName("infobox")[0].attributes.getNamedItem("graphicMargin").nodeValue;
-	infoboxParams.graphicMargin = ifbGraphicMargin;
-	ifbMaxWidth = pathsDoc.getElementsByTagName("infobox")[0].attributes.getNamedItem("maxWidth").nodeValue;
-	infoboxParams.maxWidth = ifbMaxWidth;
-	ifbSuiteLabel = pathsDoc.getElementsByTagName("infobox")[0].attributes.getNamedItem("suiteLabel").nodeValue;
-	infoboxParams.suiteLabel = ifbSuiteLabel;
-
-	ifbParamsLength = Object.keys(infoboxParams).length;
-		//console.log("  ifbParamsLength = " + ifbParamsLength);
-
-	//showInfoBoxParams(); //DEBUG
-	getPathData();
-}
-
-// BUTTONS for dev use only /////////////////////////////////
-function makeButtons(){
-	animBtn1 = document.createElement('input');
-  animBtn1.setAttribute('id', 'anim1btn');
-  animBtn1.setAttribute('type','button');
-	animBtn1.setAttribute('value',' ANIM 1 ');
-	animBtn1.onclick = function() { doAnim1() };
-  body.appendChild(animBtn1);
-
-	clearBtn = document.createElement('input');
-  clearBtn.setAttribute('id', 'clearBtn');
-  clearBtn.setAttribute('type','button');
-	clearBtn.setAttribute('value',' CLEAR ');
-	clearBtn.onclick = function() { clearsvg() };
-  body.appendChild(clearBtn);
-}
-function showGenParams() { // DEBUG
-	console.log("genParams:");
-	$.each( genParams, function( key, value ) {
-	  console.log( '   ' + key + ': ' + value);
-	});
-}
-function showInfoBoxParams() { // DEBUG
-	console.log("infoboxParams:");
-	$.each( infoboxParams, function( key, value ) {
-	  console.log( '   ' + key + ': ' + value);
-	});
-}
-// function showPathObj() { // DEBUG
-// 	console.log("pathObj:");
-// 	$.each( pathObj, function( key, value ) {
-// 	  console.log( '   ' + key + ': ' + value);
-// 	});
-// }
-
 
 // DRAW //////////////////////////////////////////////////////
-
-function getPathData() {
-		console.log("getPathData called");
-		//console.log("  pathsDoc = " + pathsDoc);
-
-	// PATH DATA
-	x = pathsDoc.getElementsByTagName("building");
-	buildingCount = x.length;
-		//console.log("  buildingCount = " + buildingCount);
-
-	for (n=0; n < buildingCount; n++) {
+function getPathData()
+{
+	for (n=0; n < $(pathsXML).find("building").length; n++) {
 		var thisBldgName = x[n].attributes.getNamedItem("name").nodeValue;
 		if (thisBldgName == "") {
 			thisBldgName = "empty";
@@ -225,7 +124,28 @@ function getPathData() {
 		}
 	}
 }
+// BUTTONS for dev use only /////////////////////////////////
+function makeButtons(){
+	animBtn1 = document.createElement('input');
+  animBtn1.setAttribute('id', 'anim1btn');
+  animBtn1.setAttribute('type','button');
+	animBtn1.setAttribute('value',' ANIM 1 ');
+	animBtn1.onclick = function() { doAnim1() };
+  body.appendChild(animBtn1);
 
+	clearBtn = document.createElement('input');
+  clearBtn.setAttribute('id', 'clearBtn');
+  clearBtn.setAttribute('type','button');
+	clearBtn.setAttribute('value',' CLEAR ');
+	clearBtn.onclick = function() { clearsvg() };
+  body.appendChild(clearBtn);
+}
+// function showPathObj() { // DEBUG
+// 	console.log("pathObj:");
+// 	$.each( pathObj, function( key, value ) {
+// 	  console.log( '   ' + key + ': ' + value);
+// 	});
+// }
 function doAnim() {
 	console.log('doAnim called');
 
