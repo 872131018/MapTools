@@ -77,52 +77,47 @@ $(document).ready(function()
 // DRAW //////////////////////////////////////////////////////
 function getPathData()
 {
-	for (n=0; n < $(pathsXML).find("building").length; n++) {
-		var thisBldgName = x[n].attributes.getNamedItem("name").nodeValue;
-		if (thisBldgName == "") {
-			thisBldgName = "empty";
+  x = pathsDoc.getElementsByTagName("building");
+	buildingCount = x.length;
+
+  $.each($(pathsXML).find("building"), function(buildingIndex, currentBuilding)
+  {
+    var buildingName = currentBuilding.attr("name");
+    var thisSuiteCount = currentBuilding.length;
+    if (buildingName == "")
+    {
+			buildingName = "empty";
 		}
-
-		var thisSuiteCount = x[n].getElementsByTagName("suite").length;
-			//console.log(" > bldg " + n + ": thisBldgName = " + thisBldgName + ", suites = " + thisSuiteCount);
-
-		if (thisBldgName == bldg) {
-			console.log("thisBldgName " + thisBldgName + " match");
-
-			found = false;
-
-			for (var i=0; i<thisSuiteCount; i++) {
-				y = x[n].getElementsByTagName("suite")[i];
-				thisSuiteName = y.attributes.getNamedItem("name").nodeValue;
-
-				if (thisSuiteName == suite) {
-						//console.log("thisSuiteName " + thisSuiteName + " match");
-
-					thisBasemap = y.attributes.getNamedItem("basemap").nodeValue;
-					thisIboxLoc = y.attributes.getNamedItem("ibox").nodeValue;
-
-					var points = y.getElementsByTagName("points")[0].childNodes[0].nodeValue;
-						console.log("  >> i = " + i + ": thisSuiteName = " + thisSuiteName + "  thisBasemap = " + thisBasemap + "  thisIboxLoc = " + thisIboxLoc + "  points: " + points);
-					pointArr = points.split(";");
-						//console.log("pointArr[0] = " + pointArr[0] );
-
-					found = true;
-					break;
-
-				}
-			}
-
-			if (found == false) {
+    if(buildingName == building)
+    {
+      var found = false;
+      $.each(currentBuilding.find("suite"), function(suiteIndex, currentSuite)
+      {
+        var currentSuiteName = currentSuite.attr("name");
+        if(currentSuiteName == suite)
+        {
+          var thisBaseMap = currentSuite.attr("basemap");
+          var thisIboxLocation = currentSuite.attr("ibox");
+          var pointsArray = currentSuite.find("points").text.split(";");
+          found = true;
+          break;
+        }
+      });
+      if(found == false)
+      {
 				console.log("suite not found");
-			} if (found == true) {
+			}
+      if(found == true)
+      {
 				console.log("suite found, calling doAnim()");
 				doAnim();	// this draws each segment concurrently. Should be refactored to draw each segment sequentially
 			}
-
-		} else {
-			console.log("building not found");
-		}
-	}
+    }
+    else
+    {
+      console.log("building not found");
+    }
+  });
 }
 // BUTTONS for dev use only /////////////////////////////////
 function makeButtons(){
