@@ -44,7 +44,7 @@ If searchTable = "Companies" Then
 	building = qCompanies("building")
 	if building = "" Or IsEmpty(building) Or IsNull(building) Then
 		building = "empty"
-	End If
+End If
 ElseIf searchtable = "Individuals" Then
 	'/*
 	'*Set query, create a record set, execute query, and count results
@@ -57,6 +57,10 @@ ElseIf searchtable = "Individuals" Then
 
 	suite = qIndividuals("Suite")
 	building = qIndividuals("iBuilding")
+	'/*
+	'*Whitelist the empty building corner case
+	'*@TODO: find out of there is some reason this is whitewashed!? commented out
+	'*/
 	if building = "" Or IsEmpty(building) Or IsNull(building) Then
 		building = "empty"
 	End If
@@ -80,7 +84,12 @@ Response.write("<div id='mapvar_bldg' style='display:none'>"&building&"</div><di
 <% '/*
 '*Move the scripts to the bottom of the body so they are non blocking
 '*/ %>
-<script language="javascript" src="scriptFiles/jquery-2.1.3.min.js"></script>
+<div id="mainmapcont" style="display:none;border: 1px solid red; width:1455px; height:806px;">
+	<svg id="svg" style="border: 1px solid black; border-image: none; left: 2px; top: 2px; width: 1449px; height: 800px;"></svg>
+</div>
+<canvas id="canvas" width="1455" height="806" style="border:1px solid #d3d3d3;">Your browser does not support the HTML5 canvas tag.</canvas>
+<script language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script language="javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js"></script>
 <script language="javascript" src="scriptFiles/velocity.js"></script>
 <script language="javascript" src="scriptFiles/svganim.js"></script>
 </body>
