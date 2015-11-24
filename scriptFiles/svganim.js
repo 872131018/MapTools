@@ -20,6 +20,10 @@ $(document).ready(function()
     if(status == 'success' && xmlData != '')
     {
       /*
+      *Initialize the wrapper around native canvas element (with id="c")
+      */
+      var canvas = new fabric.Canvas("canvas");
+      /*
       *Select each building that was placed in the page by ASP (should be one?)
       *@TODO: Find out of multiple buildings could be selected
       */
@@ -30,10 +34,6 @@ $(document).ready(function()
         */
         $(currentBuilding).find("suite[name='"+$("#mapvar_suite").html()+"']").each(function(suiteIndex, currentSuite)
         {
-          /*
-          *Initialize the wrapper around native canvas element (with id="c")
-          */
-          var canvas = new fabric.Canvas("canvas");
           /*
           *Path to a suite is made up of an array of cartesian coordinates
           */
@@ -57,31 +57,49 @@ $(document).ready(function()
               /*
               *Create a line by adding [x1, y1, x2, y2] and stroke color
               */
-              canvas.add(new fabric.Line(
-                [pointA[0], pointA[1], pointB[0], pointB[1]],
+              var line = new fabric.Line(
+                [parseInt(pointA[0]), parseInt(pointA[1]), parseInt(pointA[0]), parseInt(pointA[1])],
                 {
+                  strokeWidth: "4",
                   stroke: 'red'
                 }
-              ));
+              );
+              canvas.add(line);
               /*
-              *Create a circle by adding [x1, y1] and fill color
+              *Create a circle by adding [x1, y1], radius, and fill color
               *the purpose of the circle is to blend the line intersection
               *@note: Don't put a circle on the last line segment
               *@TODO: find a curve to blend the intersection rather than use a circle
               */
-              if(currentSegment< pointsArray.length-2)
+              if(parseInt(currentSegment) < pointsArray.length-2)
               {
-                canvas.add(new fabric.Circle(
+                var circle = new fabric.Circle(
                 {
                   fill: 'red',
                   left: pointB[0],
                   top: pointB[1]
-                }));
+                });
+                canvas.add(circle);
               }
             }
           }
         });
       });
+      /*
+      *Animate each line of the canvas
+      */
+      for(currentLine in canvas.getObjects())
+      {
+        if(parseInt(currentLine) < canvas.getObjects().length-1)
+        {
+          canvas.item(currentLine).animate("x2", canvas.item(parseInt(currentLine)+1).left, {
+            onChange: canvas.renderAll.bind(canvas)
+          });
+          canvas.item(currentLine).animate("y2", canvas.item(parseInt(currentLine)+1).top, {
+            onChange: canvas.renderAll.bind(canvas)
+          });
+        }
+      }
     }
     else
     {
