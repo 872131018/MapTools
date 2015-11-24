@@ -88,18 +88,19 @@ $(document).ready(function()
       /*
       *Animate each line of the canvas
       */
-      for(currentLine in canvas.getObjects())
-      {
-        if(parseInt(currentLine) < canvas.getObjects().length-1)
+      index = 0;
+      setInterval(function(){
+        if(index < canvas.getObjects().length-1)
         {
-          canvas.item(currentLine).animate("x2", canvas.item(parseInt(currentLine)+1).left, {
+          canvas.item(index).animate("x2", canvas.item(index+1).left, {
             onChange: canvas.renderAll.bind(canvas)
           });
-          canvas.item(currentLine).animate("y2", canvas.item(parseInt(currentLine)+1).top, {
+          canvas.item(index).animate("y2", canvas.item(index+1).top, {
             onChange: canvas.renderAll.bind(canvas)
           });
+          index += 2;
         }
-      }
+      }, 500);
     }
     else
     {
