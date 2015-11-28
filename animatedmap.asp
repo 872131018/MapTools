@@ -90,7 +90,13 @@ Response.write("<div id='mapvar_bldg' style='display:none'>"&building&"</div><di
 <canvas id="canvas" width="1455" height="806" style="border:1px solid #d3d3d3;">Your browser does not support the HTML5 canvas tag.</canvas>
 <script language="javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script language="javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.5.0/fabric.min.js"></script>
-<script language="javascript" src="scriptFiles/velocity.js"></script>
-<script language="javascript" src="scriptFiles/svganim.js"></script>
+<% '/*
+'*Load the scripts files before the driver
+'*/ %>
+<script language="javascript" src="scriptFiles/indexScripts.js"></script>
+<% '/*
+'*Load the driver to launch the app
+'*/ %>
+<script language="javascript" src="scriptFiles/indexDriver.js"></script>
 </body>
 </html>

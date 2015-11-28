@@ -22,7 +22,7 @@ $(document).ready(function()
       /*
       *Initialize the wrapper around native canvas element (with id="c")
       */
-      var canvas = new fabric.Canvas("canvas");
+      var canvas = new fabric.StaticCanvas("canvas");
       /*
       *Select each building that was placed in the page by ASP (should be one?)
       *@TODO: Find out of multiple buildings could be selected
@@ -60,6 +60,7 @@ $(document).ready(function()
               var line = new fabric.Line(
                 [parseInt(pointA[0]), parseInt(pointA[1]), parseInt(pointA[0]), parseInt(pointA[1])],
                 {
+                  opacity: 0,
                   strokeWidth: "4",
                   stroke: 'red'
                 }
@@ -71,35 +72,135 @@ $(document).ready(function()
               *@note: Don't put a circle on the last line segment
               *@TODO: find a curve to blend the intersection rather than use a circle
               */
-              if(parseInt(currentSegment) < pointsArray.length-2)
+              var circle = new fabric.Circle(
               {
-                var circle = new fabric.Circle(
-                {
-                  fill: 'red',
-                  left: pointB[0],
-                  top: pointB[1]
-                });
-                canvas.add(circle);
-              }
+                radius: 2,
+                fill: 'red',
+                opacity: 0,
+                left: parseInt(pointB[0]),
+                top: parseInt(pointB[1])
+              });
+              canvas.add(circle);
+            }
+            /*
+            * Put the finishing arrow on the final segment
+            */
+            else if(parseInt(currentSegment) == pointsArray.length-1)
+            {
+              /*
+              *Convert final line circle pair to a rotation for the arrow
+              *@TODO: convert point sets to be objects
+              */
+              var pointA = pointsArray[currentSegment].split(",");
+              var pointB = pointsArray[parseInt(currentSegment)-1].split(",");
+              /*
+              * Find the rotation angle based on the angle of the last line
+              */
+              var rotation =  Math.round(Math.atan(parseInt(pointA[1])-parseInt(pointB[1])) / parseInt(pointA[0])-parseInt(pointB[0]) * 180) / Math.PI;
+              console.log(pointB);
+              var triangle = new fabric.Triangle(
+              {
+                width: 10,
+                height: 10,
+                fill: 'red',
+                left: parseInt(pointA[0] - 5),
+                top: parseInt(pointA[1] - 5)
+              });
+              //triangle.angle = rotation;
+              canvas.add(triangle);
             }
           }
         });
       });
+      // TODO: calculate the angle of final segment,
+      // and place arrow on end of final segment at that angle.
+      // the following code is ActionScript (Flash) for placing the arrow
       /*
-      *Animate each line of the canvas
+      function getLastLineRotation():void {
+        pos1.x = coordArray[coordArray.length-2].x;
+        pos1.y = coordArray[coordArray.length-2].y;
+        pos2.x = coordArray[coordArray.length-1].x;
+        pos2.y = coordArray[coordArray.length-1].y;
+        lastAngle = Math.round((Math.atan((pos2.y-pos1.y) / (pos2.x-pos1.x)) * 180) / Math.PI);;
+        if (pos2.x<pos1.x){
+          lastAngle = lastAngle + 180;
+        }else if (pos2.x<pos1.x && pos1.y==pos2.y){
+          lastAngle = 180;
+        }
+          //Main.testMsgBox.addText("getLastLineRotation: lastAngle = " + lastAngle);
+      }
+
+      function placeArrow(x:Number, y:Number, r:Number):void {
+          //Main.testMsgBox.addText("placeArrow: x=" + x + ", y=" + y + ", r=" + r);
+        if (arrowPlaced == false){
+          if (firstLinePlaced == false){
+            return;
+          }else if (firstLinePlaced == true){
+            var arrow:Sprite = new Sprite();
+            with (arrow.graphics) {
+              beginFill(lineColor, 1.0);
+              moveTo(0, 0);
+              lineTo(0, -15);
+              lineTo(25, 0);
+              lineTo(0, 15);
+              lineTo(0, 0);
+              endFill();
+            }
+            arrow.x = x;
+            arrow.y = y;
+            arrow.rotation = r;
+            addChild(arrow);
+
+            lineList.push(arrow);
+            arrowPlaced = true;
+          }
+        }else if (arrowPlaced == true){
+          return;
+        }
+      }
+      */
+      /*
+      * Animate each line of the canvas
       */
       index = 0;
-      setInterval(function(){
+      intervalId = setInterval( function() {
+        /*
+        * Canvas objects consist of line and circle pairs
+        */
         if(index < canvas.getObjects().length-1)
         {
+          /*
+          * The line is two over lapping points when it is created
+          * Treat the circle as a new end point and animate transformation
+          */
           canvas.item(index).animate("x2", canvas.item(index+1).left, {
             onChange: canvas.renderAll.bind(canvas)
           });
           canvas.item(index).animate("y2", canvas.item(index+1).top, {
             onChange: canvas.renderAll.bind(canvas)
           });
-          index += 2;
+          canvas.item(index).animate("opacity", 1.0, {
+            onChange: canvas.renderAll.bind(canvas)
+          });
+          canvas.item(index+1).animate("opacity", 1.0, {
+            onChange: canvas.renderAll.bind(canvas)
+          });
         }
+        /*
+        * On final segment clear interval and add finish arrow
+        */
+        else if(index == canvas.getObjects().length)
+        {
+          clearInterval(intervalId);
+        }
+        /*
+        * Increment by two because they are related objects
+        */
+        index += 2;
+        /*
+        * Time between intervals is the product of a computation
+        * @TODO: refactor to use distance between points to compute speed
+        */
       }, 500);
     }
     else
@@ -124,60 +225,6 @@ function makeButtons(){
 	clearBtn.onclick = function() { clearsvg() };
   body.appendChild(clearBtn);
 }
-// function showPathObj() { // DEBUG
-// 	console.log("pathObj:");
-// 	$.each( pathObj, function( key, value ) {
-// 	  console.log( '   ' + key + ': ' + value);
-// 	});
-// }
-
-
-// TODO: calculate the angle of final segment, and place arrow on end of final segment at that angle.
-// the following code is ActionScript (Flash) for placing the arrow
-/*
-function getLastLineRotation():void {
-	pos1.x = coordArray[coordArray.length-2].x;
-	pos1.y = coordArray[coordArray.length-2].y;
-	pos2.x = coordArray[coordArray.length-1].x;
-	pos2.y = coordArray[coordArray.length-1].y;
-	lastAngle = Math.round((Math.atan((pos2.y-pos1.y) / (pos2.x-pos1.x)) * 180) / Math.PI);;
-	if (pos2.x<pos1.x){
-		lastAngle = lastAngle + 180;
-	}else if (pos2.x<pos1.x && pos1.y==pos2.y){
-		lastAngle = 180;
-	}
-		//Main.testMsgBox.addText("getLastLineRotation: lastAngle = " + lastAngle);
-}
-
-function placeArrow(x:Number, y:Number, r:Number):void {
-		//Main.testMsgBox.addText("placeArrow: x=" + x + ", y=" + y + ", r=" + r);
-	if (arrowPlaced == false){
-		if (firstLinePlaced == false){
-			return;
-		}else if (firstLinePlaced == true){
-			var arrow:Sprite = new Sprite();
-			with (arrow.graphics) {
-				beginFill(lineColor, 1.0);
-				moveTo(0, 0);
-				lineTo(0, -15);
-				lineTo(25, 0);
-				lineTo(0, 15);
-				lineTo(0, 0);
-				endFill();
-			}
-			arrow.x = x;
-			arrow.y = y;
-			arrow.rotation = r;
-			addChild(arrow);
-
-			lineList.push(arrow);
-			arrowPlaced = true;
-		}
-	}else if (arrowPlaced == true){
-		return;
-	}
-}
-*/
 
 // test & debug functions
 function doAnim1() { // button function
