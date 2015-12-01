@@ -4,6 +4,19 @@
 $(document).ready(function()
 {
   /*
+  * Only support a few global variables
+  * Index for iterating final segments during animation
+  * Delay holds time between animation segments
+  * IntervalID will be used to clear the interval during the animation
+  */
+  index = 0;
+  delay = 500;
+  IntervalID = 0;
+  /*
+  *Initialize the global around native canvas element (with id="c")
+  */
+  canvas = new fabric.StaticCanvas("canvas");
+  /*
   *Load an xml with ajax that describes the path to draw
   *@TODO: also add error handling for failed requests or if the file is empty
   */
@@ -15,10 +28,6 @@ $(document).ready(function()
     */
     if(status == 'success' && xmlData != '')
     {
-      /*
-      *Initialize the wrapper around native canvas element (with id="c")
-      */
-      var canvas = new fabric.StaticCanvas("canvas");
       /*
       *Select each building that was placed in the page by ASP (should be one?)
       *@TODO: Find out of multiple buildings could be selected
@@ -63,7 +72,7 @@ $(document).ready(function()
                 ));
             }
             /*
-            * Put the finishing arrow on the final segment
+            * Put the finishing arrow on the final segment instead of circle
             */
             else if(parseInt(currentSegment) == pointsArray.length-1)
             {
@@ -74,61 +83,32 @@ $(document).ready(function()
               /*
               *Convert final line circle pair to a rotation for the arrow
               */
-              //var pointA = pointsArray[currentSegment].split(",");
-              //var pointB = pointsArray[parseInt(currentSegment)-1].split(",");
+              var pointA = createPoint(parseInt(currentSegment), pointsArray);
+              var pointB = createPoint(parseInt(currentSegment)-1, pointsArray);
               /*
               * Find the rotation angle based on the angle of the last line
               */
-              //var rotation =  Math.round(Math.atan(parseInt(pointA[1])-parseInt(pointB[1])) / parseInt(pointA[0])-parseInt(pointB[0]) * 180) / Math.PI;
-              //console.log(pointB);
-              //triangle.angle = rotation;
+              //var rotation =  Math.round(Math.atan((pointA.y - pointB.y), pointA.x - pointB.x) * (180 / Math.PI));
+              var rotation =  Math.atan2(pointA.y - pointB.y, pointA.x - pointB.x) * (180 / Math.PI);
+              /*
+              *Rotate by 90 to account for the difference between the positive x axis and the triangle default rotation
+              */
+              rotation += 90;
+              /*
+              * Set rotation for the angle based on the computed value
+              */
+              triangle.angle = rotation;
             }
           }
         });
       });
       /*
-      * Animate each line of the canvas
+      * Begin animation of line segments in path
       */
-      index = 0;
-      intervalId = setInterval( function() {
-        /*
-        * Canvas objects consist of line and circle pairs
-        */
-        if(index < canvas.getObjects().length-1)
-        {
-          /*
-          * The line is two over lapping points when it is created
-          * Treat the circle as a new end point and animate transformation
-          */
-          canvas.item(index).animate("x2", canvas.item(index+1).left, {
-            onChange: canvas.renderAll.bind(canvas)
-          });
-          canvas.item(index).animate("y2", canvas.item(index+1).top, {
-            onChange: canvas.renderAll.bind(canvas)
-          });
-          canvas.item(index).animate("opacity", 1.0, {
-            onChange: canvas.renderAll.bind(canvas)
-          });
-          canvas.item(index+1).animate("opacity", 1.0, {
-            onChange: canvas.renderAll.bind(canvas)
-          });
-        }
-        /*
-        * On final segment clear interval and add finish arrow
-        */
-        else if(index == canvas.getObjects().length)
-        {
-          clearInterval(intervalId);
-        }
-        /*
-        * Increment by two because they are related objects
-        */
-        index += 2;
-        /*
-        * Time between intervals is the product of a computation
-        * @TODO: refactor to use distance between points to compute speed
-        */
-      }, 500);
+      setTimeout(function()
+      {
+        animateSegment()
+      }, delay);
     }
     else
     {
