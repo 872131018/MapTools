@@ -11,6 +11,8 @@ function animateSegment()
     var sideA = Math.abs(canvas.item(index).x1 - canvas.item(index+1).left);
     var sideB = Math.abs(canvas.item(index).y1 - canvas.item(index+1).top);
     var length = Math.sqrt((sideA*sideA) + (sideB*sideB));
+
+    //delay = (length/delay);
     /*
     * The line is two over lapping points so animate second point
     * Treat the circle as a new end point and transform the line
@@ -52,6 +54,13 @@ function animateSegment()
       duration: delay,
       onChange: canvas.renderAll.bind(canvas)
     });
+    /*
+    * Also animate the reveal of the infobox
+    */
+    $("#infoboxWrapper").animate(
+      {
+        opacity: 0.8
+      }, 1500);
   }
   /*
   * Increment by two because the lines are paired with points

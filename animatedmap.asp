@@ -6,6 +6,16 @@
   <link rel="stylesheet" type="text/css" href="styles_map.css" media="screen" />
 </head>
 <body>
+  <div id="infoboxWrapper" style="opacity: 0.0; position: absolute; left: 0; top: 0;">
+    <div class="infobox-container">
+      <div class="triangle-l"></div>
+      <div class="triangle-r"></div>
+      <div class="infobox">
+        <h3><span>This is the Header</span></h3>
+        <p>This is the content of the infobox.<p/>
+      </div>
+    </div>
+  </div>
 <%
 '/*
 '*Tokenize the query string and extract values
