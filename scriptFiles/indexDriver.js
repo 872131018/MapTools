@@ -4,19 +4,6 @@
 $(document).ready(function()
 {
   /*
-  * Create an infobox and add it to the page
-  */
-  /*
-  $('body').prepend('</div>');
-  $('body').prepend('</div>');
-  $('body').prepend('<p>This is the content of the infobox.</p>');
-  $('body').prepend('<h3><span>This is the Header</span></h3>');
-  $('body').prepend('<div class="infobox">');
-  $('body').prepend('<div class="triangle-r"></div>');
-  $('body').prepend('<div class="triangle-l"></div>');
-  $('body').prepend('<div class="infobox-container">');
-  */
-  /*
   * Only support a few global variables
   * Index for iterating final segments during animation
   * Delay holds time between animation segments
